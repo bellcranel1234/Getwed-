@@ -1,0 +1,43 @@
+CREATE TABLE IF NOT EXISTS users (
+    id INT(11) NOT NULL
+    AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    bio TEXT,
+    profil_pic VARCHAR(255)
+    DEFAULT 'default.png' ,
+    is_creactor BOOLEAN DEFAULT
+    FALSE,-- c'est ici que le bouton "passer en mode createur" agira
+    created_at TIMESTAMP DEFAULT
+    CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT
+    CHARSET=utf8mb4;
+    
+    
+CREATE TABLE IF NOT EXISTS post (
+    id INT(11) NOT NULL
+    AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    content_type ENUM('text','video') NOT NULL,
+    text_content TEXT,
+    media_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT
+    CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id)
+    REFERENCES users(id) ON DELETE
+    CASCADE
+    ) ENGINE=innoDB DEFAULT
+    CHARSET=utf8mb4;
+    
+ CREATE TABLE IF NOT EXISTS likes (
+     id INT(11) NOT NULL
+     AUTO_INCREMENT,
+     user_id INT(11) NOT NULL,
+     post_id INT(11) NOT NULL,
+     PRIMARY KEY (id),
+     FOREIGN KEY (user_id)
+     REFERENCES user(id) ON DELETE
+     CASCADE
+     ) ENGINE=innoDB DEFAULT
+     CHARSET=utf8mb4;
